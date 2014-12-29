@@ -1,0 +1,110 @@
+<html>
+<head>
+	<title>My Projects</title>
+	<style>
+		#wrap { width:100%; margin: 0 auto;}
+		#map { height: 90%; width:100%; float:left;}
+		#sidebar { float:right; width:40%; height:90%; background:#00FFFF; overflow:scroll; display:none;}
+		#closeSideBar { cursor: pointer; text-align:right; color:blue; margin-right:2%; text-decoration: underline;}
+		p { padding:5px;}
+		.bottom { display:inline; margin-top:1px; padding:1.1em;}
+		#title { font-size:2em; font-family:Arial; text-align:center;}
+		.footer { clear: both; text-align:center;}
+	</style>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+	<!--[if lte IE 8]>
+ 		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+	<![endif]-->
+</head>
+
+<body>
+ <header id="title">I Could Be a Title</header>
+ <div id="wrap">
+	 <div id="map"></div>
+ 	<div id="sidebar">
+ 		<div id="closeSideBar">X</div>
+			<p class="usa">
+ 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ut lacinia leo. Sed blandit ante urna, egestas hendrerit libero gravida vitae. Nam scelerisque odio justo, in vulputate dui dictum quis. Sed id condimentum quam. Nunc ultricies suscipit mattis. Maecenas quis purus a odio sagittis pretium vitae ac risus. Phasellus lacinia, nisi eu aliquam aliquam, justo mauris lacinia erat, non lobortis leo orci vel nisl. Integer commodo suscipit lacus, vel ullamcorper tellus faucibus ut. Cras ultricies massa quis tortor tempor eleifend. Suspendisse velit sapien, tempus sit amet dolor ac, vehicula placerat ante. Vestibulum sed varius lacus. Mauris vestibulum sollicitudin velit vitae dapibus. Nunc a odio neque. Morbi convallis, dolor et sodales lobortis, nisl metus suscipit risus, vel sodales tellus ante vitae arcu. Pellentesque quis bibendum magna.
+ 			</p>
+			<p class="usa">
+Curabitur eu nisl quam. Phasellus semper ante vitae diam pulvinar fringilla. Donec metus libero, vulputate id ullamcorper varius, iaculis a justo. Vivamus hendrerit porta nibh, in pharetra mi. Suspendisse eget nibh mauris. Quisque congue, enim vel sollicitudin aliquet, enim libero tincidunt est, id commodo nunc ipsum id sapien. Maecenas vel vehicula velit, eu hendrerit ligula. Suspendisse laoreet vel tortor id malesuada. Vestibulum molestie arcu in nunc commodo, at pellentesque erat fermentum. Cras egestas pretium rhoncus. Phasellus accumsan mattis faucibus. Nunc augue mauris, laoreet vitae risus ut, gravida eleifend enim.
+			</p>
+			<p class="rome">
+Proin consequat urna quis rhoncus interdum. Mauris vel nunc sodales, facilisis mi sit amet, laoreet orci. Proin tempus nunc nibh, ac dignissim sem auctor ac. Nullam nec massa ac nisl sagittis consequat in sit amet eros. Nam commodo viverra neque, sit amet aliquet magna cursus vitae. Vestibulum pulvinar tempor risus, vel fermentum nibh venenatis in. Aenean eget velit quis nisi viverra ultricies. Nulla sit amet libero augue. Donec id est leo. Cras sed urna bibendum, molestie neque non, tincidunt velit. Sed tempor purus ut orci molestie consequat. Cras a elit neque. Etiam congue nunc sed sapien placerat fermentum.
+			</p>
+ 	</div>
+
+ <footer class="footer">
+  <div>Learn More About My Projects:</div>
+ <button  class="bottom" id="usabutton">USA Campus</button>
+ <button  class="bottom" id="romebutton">Rome</button>
+</footer>
+
+</div>
+ 
+ <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+ <script>
+
+	var map = L.map('map').setView([30.69523, -88.18275], 16);
+
+	/* http://leaflet-extras.github.io/leaflet-providers/preview/ */
+
+	var OpenStreetMap_Mapnik = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+	}).addTo(map);
+
+	/*var Esri_WorldStreetMap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+		attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+	}).addTo(map);*/
+
+	/*L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
+	}).addTo(map);*/
+
+	var usaMarker = L.marker([30.69523, -88.18275]).addTo(map);
+	usaMarker.addEventListener("click", function(evt){
+		document.getElementById('map').style.width="60%";
+		document.getElementById('sidebar').style.display = "block";
+	});
+
+	var romeMarker = L.marker([41.86670, 12.61670]).addTo(map);
+	romeMarker.addEventListener("click", function(evt){
+		document.getElementById('map').style.width="60%";
+		document.getElementById('sidebar').style.display = "block";
+	});
+
+	var close = document.getElementById('closeSideBar');
+	close.addEventListener("click", function(evt){
+		document.getElementById('map').style.width="100%";
+		document.getElementById('sidebar').style.display = "none";
+	});
+
+	var updateDescription = function(showTagName, hideTagName){
+		var tags = document.getElementsByClassName(showTagName);
+		for(var i = 0; i < tags.length; i++){
+			var tag = tags[i];
+			tag.style.display = 'block';
+		}
+
+		var tags = document.getElementsByClassName(hideTagName);
+		for(var i = 0; i < tags.length; i++){
+			var tag = tags[i];
+			tag.style.display = 'none';
+		}
+	};
+
+	document.getElementById('usabutton').addEventListener('click', function(evt){
+		updateDescription('usa', 'rome');
+		map.setView({lon:-88.18275, lat:30.69523}, 16);
+	});
+
+	document.getElementById('romebutton').addEventListener('click', function(evt){
+		updateDescription('rome', 'usa');
+		map.setView({lon:12.61670, lat:41.86670}, 10);
+	});
+
+</script>
+</body>
+
+</html>
